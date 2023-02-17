@@ -110,7 +110,7 @@ const Presale = () => {
   };
 
   const getWalletConnected = (addr, web3) => {
-    console.log(`get wallet connected`);
+    console.log(`get wallet connected web3modal`);
     setWalletConnected(true);
     setConnect(false);
     setGetWeb3(web3);
@@ -233,7 +233,6 @@ const Presale = () => {
                       ) : (
                         <div className="mt-3">
                           <Web3Button />
-                          <MetaMaskConnector updateAddr={updateAddr} getWalletConnected={getWalletConnected}/>
                         </div>
                       )}
                       <p className="text-center">
