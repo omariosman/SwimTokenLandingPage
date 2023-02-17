@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import { Navbar, Container, Offcanvas, Nav, NavDropdown, Form, Button } from "react-bootstrap";
 import Web3 from 'web3';
 
-function MetaMaskConnector() {
+function MetaMaskConnector(props) {
   const [account, setAccount] = useState('');
 
+    const getWalletConnected = () => {
+        props.getWalletConnected();
+        props.updateAddr(account);
+    }
   async function connectToMetaMask() {
     if (window.ethereum) {
       try {
@@ -12,6 +16,7 @@ function MetaMaskConnector() {
         const web3 = new Web3(window.ethereum);
         const accounts = await web3.eth.getAccounts();
         setAccount(accounts[0]);
+        getWalletConnected();
       } catch (error) {
         console.error(error);
       }

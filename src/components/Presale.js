@@ -13,15 +13,21 @@ import { useCountdown } from "./useCountdown";
 import { padding } from "@mui/system";
 import axios from 'axios';
 import { NumericFormat } from 'react-number-format';
+import MetaMaskConnector from "./Wallet/MetaMaskConnector";
 
 const Presale = () => {
   const [modalShow, setModalShow] = React.useState(false);
   const [connect, setConnect] = React.useState(false);
   const [getWeb3, setGetWeb3] = React.useState({});
-  const [walletConnected, setwalletConnected] = useState("");
+  const [walletConnected, setWalletConnected] = useState(false);
   const [soldToken,setsoldToken] = useState([])
-
+  const [accountAddr, setAccountAddr] = useState("");
   
+  // Function to update parent state
+  function updateAddr(addr) {
+    setAccountAddr(addr);
+  }
+
   const getSoldTokenAPI = async() => {
     const response = await axios({
         method: 'post',
@@ -107,7 +113,8 @@ const Presale = () => {
   };
 
   const getWalletConnected = (addr, web3) => {
-    setwalletConnected(addr);
+    console.log(`get wallet connected`);
+    setWalletConnected(true);
     setConnect(false);
     setGetWeb3(web3);
   };
@@ -213,6 +220,7 @@ const Presale = () => {
 
                       {walletConnected ? (
                         <div className="wallet mt-3">
+                          
                           <Button
                             className="w-100 btn btn-primary"
                             onClick={() => setModalShow(true)}
@@ -227,12 +235,7 @@ const Presale = () => {
                         </div>
                       ) : (
                         <div className="mt-3">
-                          <Button
-                            className="w-100 btn btn-primary"
-                            onClick={() => connectWallet()}
-                          >
-                            Connect Wallet
-                          </Button>
+                          <MetaMaskConnector updateAddr={updateAddr} getWalletConnected={getWalletConnected}/>
                         </div>
                       )}
                       <p className="text-center">
