@@ -14,6 +14,7 @@ import { padding } from "@mui/system";
 import axios from 'axios';
 import { NumericFormat } from 'react-number-format';
 import MetaMaskConnector from "./Wallet/MetaMaskConnector";
+import { Web3Button } from "@web3modal/react";
 
 const Presale = () => {
   const [modalShow, setModalShow] = React.useState(false);
@@ -33,12 +34,10 @@ const Presale = () => {
         method: 'post',
         url: "https://futureittechsolutions.com:5001/api/getsoldtoken",
         data: {
-            
         }
     })
     .then(function (response) {
       setsoldToken(response.data.data[0])
-       
         })
         .catch(
             error => {
@@ -46,8 +45,6 @@ const Presale = () => {
 
         );
     ;
-
-
 }
 
   const DateTimeDisplay = ({ value, type, isDanger }) => {
@@ -235,6 +232,7 @@ const Presale = () => {
                         </div>
                       ) : (
                         <div className="mt-3">
+                          <Web3Button />
                           <MetaMaskConnector updateAddr={updateAddr} getWalletConnected={getWalletConnected}/>
                         </div>
                       )}
