@@ -15,6 +15,7 @@ import axios from 'axios';
 import { NumericFormat } from 'react-number-format';
 import MetaMaskConnector from "./Wallet/MetaMaskConnector";
 import { Web3Button } from "@web3modal/react";
+import { useAccount } from "wagmi";
 
 const Presale = () => {
   const [modalShow, setModalShow] = React.useState(false);
@@ -24,6 +25,15 @@ const Presale = () => {
   const [soldToken,setsoldToken] = useState([])
   const [accountAddr, setAccountAddr] = useState("");
   
+  const {
+    connector: activeConnector,
+    isConnected,
+    address,
+    isConnecting,
+    isDisconnected,
+    isDisconnecting,
+  } = useAccount();
+
   // Function to update parent state
   function updateAddr(addr) {
     setAccountAddr(addr);
@@ -215,7 +225,7 @@ const Presale = () => {
                         </div>
                       </div>
 
-                      {walletConnected ? (
+                      {isConnected ? (
                         <div className="wallet mt-3">
                           
                           <Button

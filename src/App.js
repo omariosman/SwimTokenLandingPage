@@ -10,6 +10,7 @@ import {
   modalConnectors,
   walletConnectProvider,
 } from "@web3modal/ethereum";
+import { InjectedConnector } from "@web3-react/injected-connector";
 
 import { Web3Modal } from "@web3modal/react";
 
