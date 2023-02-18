@@ -249,7 +249,6 @@ const Presale = () => {
                       <div className={`value ${classes.value}`}>
                           <h5>Amount Raised $
                           <NumericFormat className="NumericFormat"  value={parseFloat(soldToken.sold).toFixed(2)} allowLeadingZeros thousandSeparator="," />
-                            
                              </h5>
                         </div>
                       </div>
