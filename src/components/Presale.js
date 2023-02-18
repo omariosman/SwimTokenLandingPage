@@ -180,11 +180,7 @@ const Presale = () => {
   }
 
   const disconnectClicked = () => {
-    //setIsLoggedIn(false);
     setDialogBoxOpen(true);
-    //console.log(`box open`);
-    //debugger;
-    //setMetamaskConnected(false);
   }
 
 
