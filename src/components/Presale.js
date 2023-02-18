@@ -15,16 +15,37 @@ import axios from 'axios';
 import { NumericFormat } from 'react-number-format';
 import MetaMaskConnector from "./Wallet/MetaMaskConnector";
 import { Web3Button } from "@web3modal/react";
+import DialogBox from "./DialogBox";
+import { makeStyles } from '@material-ui/core/styles';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faWallet } from '@fortawesome/free-solid-svg-icons';
 import { useAccount } from "wagmi";
 
+
+const useStyles = makeStyles((theme) => ({
+  loaderBar: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  value: {
+    textAlign: 'center',
+    margin: 0,
+  }
+
+}));
+
 const Presale = () => {
+  const classes = useStyles();
+
   const [modalShow, setModalShow] = React.useState(false);
   const [connect, setConnect] = React.useState(false);
   const [getWeb3, setGetWeb3] = React.useState({});
   const [walletConnected, setWalletConnected] = useState(false);
   const [soldToken,setsoldToken] = useState([])
   const [accountAddr, setAccountAddr] = useState("");
-  
+  const [dialogBoxOpen, setDialogBoxOpen] = useState(false);
+
   const {
     connector: activeConnector,
     isConnected,
@@ -144,6 +165,15 @@ const Presale = () => {
     // }
     getSoldTokenAPI()
   }, []);
+
+  const connectClicked = () => {
+    setDialogBoxOpen(true);
+  }
+
+  const cancelButton = () => {
+    setDialogBoxOpen(false);
+  }
+
   return (
     <>
       <section className="hero-section-pre">
@@ -216,8 +246,8 @@ const Presale = () => {
                       <div className="timer">
                         <CountdownTimer targetDate={dateTimeAfterThreeDays} />
                       </div>
-                      <div class="loader-bar">
-                        <div class="value">
+                      <div className={`loader-bar ${classes.loaderBar}`}>
+                      <div className={`value ${classes.value}`}>
                           <h5>Raised $
                           <NumericFormat className="NumericFormat"  value={parseFloat(soldToken.sold).toFixed(2)} allowLeadingZeros thousandSeparator="," />
                             
@@ -246,7 +276,12 @@ const Presale = () => {
                       </>
                       ) : (
                         <div className="mt-3">
-                          <Web3Button />
+
+                            <Button onClick={connectClicked}>Connect/Disconnect</Button>
+                          {
+                            <DialogBox dialogBoxOpen={dialogBoxOpen} cancelButton={cancelButton}/>
+                          }
+                          
                         </div>
                       )}
                       <p className="text-center">
@@ -275,357 +310,357 @@ const Presale = () => {
           <div className="container">
             <div className="row">
               <div className="col-md-4">
-                <div class="sale-box-black">
+                <div className="sale-box-black">
                   <h2>WISE SEED ROUND</h2>
                   <p>Token Pricing: $0.027</p>{" "}
                   {/* <p>Minimum Investment: $100 </p> */}{" "}
-                  <button class="btn">ONGOING</button>
+                  <button className="btn">ONGOING</button>
                 </div>
               </div>
               <div className="col-md-4">
-                <div class="sale-box-black">
+                <div className="sale-box-black">
                   <h2>ICO ON EXCHANGE</h2>
                   <p>Token Pricing: $0.054</p>{" "}
                   {/* <p>Minimum Investment: $100 </p> */}{" "}
-                  <button class="btn">COMING SOON</button>
+                  <button className="btn">COMING SOON</button>
                 </div>
               </div>
               <div className="col-md-4">
-                <div class="sale-box-black">
+                <div className="sale-box-black">
                   <h2>WISE LISTING </h2>
                   <p>
                     Token Pricing: To The Jupiter 🚀 (Planet of Wisdom) 🚀
                   </p>{" "}
                   {/* <p>Minimum Investment: $100 </p> */}{" "}
-                  <button class="btn">COMING SOON</button>
+                  <button className="btn">COMING SOON</button>
                 </div>
               </div>
             </div>
           </div>
           <div className="row align-items-center d-flex mt-4">
-            <ul class="tokenomics-list">
-              <li class="tokenomics-list__item">
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__title">
-                    <span class="text-theme">Seed Round</span>
+            <ul className="tokenomics-list">
+              <li className="tokenomics-list__item">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__title">
+                    <span className="text-theme">Seed Round</span>
                   </span>
-                  <span class="tokenomics-list__small-text">
+                  <span className="tokenomics-list__small-text">
                     {" "}
                     3 Months cliff and vested over 12 Months from TGE date.
                   </span>
                 </div>
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__small-text">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__small-text">
                     {" "}
                     Token Allocation{" "}
                   </span>
-                  <span class="tokenomics-list__number">4.00 %</span>
+                  <span className="tokenomics-list__number">4.00 %</span>
                 </div>
               </li>
-              <li class="tokenomics-list__item">
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__title">
-                    <span class="text-theme">Wise Public Round 1</span>
+              <li className="tokenomics-list__item">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__title">
+                    <span className="text-theme">Wise Public Round 1</span>
                   </span>
-                  <span class="tokenomics-list__small-text">
+                  <span className="tokenomics-list__small-text">
                     {" "}
                     Unlockced at TGE and vested over 9 months from TLE date.
                   </span>
                 </div>
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__small-text">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__small-text">
                     {" "}
                     Token Allocation{" "}
                   </span>
-                  <span class="tokenomics-list__number">4.18 %</span>
+                  <span className="tokenomics-list__number">4.18 %</span>
                 </div>
               </li>
-              <li class="tokenomics-list__item">
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__title">
-                    <span class="text-theme">Wise Public Round 2</span>
+              <li className="tokenomics-list__item">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__title">
+                    <span className="text-theme">Wise Public Round 2</span>
                   </span>
-                  <span class="tokenomics-list__small-text">
+                  <span className="tokenomics-list__small-text">
                     {" "}
                     Unlockced at TGE and vested over 9 months from TLE date.
                   </span>
                 </div>
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__small-text">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__small-text">
                     {" "}
                     Token Allocation{" "}
                   </span>
-                  <span class="tokenomics-list__number">4.18 %</span>
+                  <span className="tokenomics-list__number">4.18 %</span>
                 </div>
               </li>
-              <li class="tokenomics-list__item">
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__title">
-                    <span class="text-theme">Wise Community Round</span>
+              <li className="tokenomics-list__item">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__title">
+                    <span className="text-theme">Wise Community Round</span>
                   </span>
-                  <span class="tokenomics-list__small-text">
+                  <span className="tokenomics-list__small-text">
                     {" "}
                     Unlockced at TGE and vested over 9 months from TLE date.
                   </span>
                 </div>
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__small-text">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__small-text">
                     {" "}
                     Token Allocation{" "}
                   </span>
-                  <span class="tokenomics-list__number">6.18 %</span>
+                  <span className="tokenomics-list__number">6.18 %</span>
                 </div>
               </li>
-              <li class="tokenomics-list__item">
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__title">
-                    <span class="text-theme">Team</span>
+              <li className="tokenomics-list__item">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__title">
+                    <span className="text-theme">Team</span>
                   </span>
-                  <span class="tokenomics-list__small-text">
+                  <span className="tokenomics-list__small-text">
                     {" "}
                     12 Months cliff and vested over 36 Months from TGE date.
                   </span>
                 </div>
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__small-text">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__small-text">
                     {" "}
                     Token Allocation{" "}
                   </span>
-                  <span class="tokenomics-list__number">6.30 %</span>
+                  <span className="tokenomics-list__number">6.30 %</span>
                 </div>
               </li>
-              <li class="tokenomics-list__item">
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__title">
-                    <span class="text-theme">Operations</span>
+              <li className="tokenomics-list__item">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__title">
+                    <span className="text-theme">Operations</span>
                   </span>
-                  <span class="tokenomics-list__small-text">
+                  <span className="tokenomics-list__small-text">
                     {" "}
                     Unlockced all at TGE and vested over 18 Months from TLE
                     date.
                   </span>
                 </div>
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__small-text">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__small-text">
                     {" "}
                     Token Allocation{" "}
                   </span>
-                  <span class="tokenomics-list__number">3.18 %</span>
+                  <span className="tokenomics-list__number">3.18 %</span>
                 </div>
               </li>
-              <li class="tokenomics-list__item">
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__title">
-                    <span class="text-theme">
+              <li className="tokenomics-list__item">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__title">
+                    <span className="text-theme">
                       {" "}
                       Telent Acquisition & Wisdom Events{" "}
                     </span>
                   </span>
-                  <span class="tokenomics-list__small-text">
+                  <span className="tokenomics-list__small-text">
                     {" "}
                     3 Months cliff and vested over 36 Months from TGE date.
                   </span>
                 </div>
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__small-text">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__small-text">
                     {" "}
                     Token Allocation{" "}
                   </span>
-                  <span class="tokenomics-list__number">9.00 %</span>
+                  <span className="tokenomics-list__number">9.00 %</span>
                 </div>
               </li>
-              <li class="tokenomics-list__item">
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__title">
-                    <span class="text-theme">
+              <li className="tokenomics-list__item">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__title">
+                    <span className="text-theme">
                       {" "}
                       Marketing, Promotion &amp; Community Building{" "}
                     </span>
                   </span>
-                  <span class="tokenomics-list__small-text">
+                  <span className="tokenomics-list__small-text">
                     3 Months cliff and vested over 36 Months from TGE date.
                   </span>
                 </div>
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__small-text">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__small-text">
                     {" "}
                     Token Allocation{" "}
                   </span>
-                  <span class="tokenomics-list__number">8.00 %</span>
+                  <span className="tokenomics-list__number">8.00 %</span>
                 </div>
               </li>
-              <li class="tokenomics-list__item">
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__title">
-                    <span class="text-theme">Treasury / Game Development</span>
+              <li className="tokenomics-list__item">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__title">
+                    <span className="text-theme">Treasury / Game Development</span>
                   </span>
-                  <span class="tokenomics-list__small-text">
+                  <span className="tokenomics-list__small-text">
                     3 Months cliff and vested over 45 Months from TGE date.
                   </span>
                 </div>
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__small-text">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__small-text">
                     {" "}
                     Token Allocation{" "}
                   </span>
-                  <span class="tokenomics-list__number">15.00 %</span>
+                  <span className="tokenomics-list__number">15.00 %</span>
                 </div>
               </li>
-              <li class="tokenomics-list__item">
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__title">
-                    <span class="text-theme">Donation &amp; Charity</span>
+              <li className="tokenomics-list__item">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__title">
+                    <span className="text-theme">Donation &amp; Charity</span>
                   </span>
-                  <span class="tokenomics-list__small-text">
+                  <span className="tokenomics-list__small-text">
                     3 Months cliff and vested over 45 Months from TGE date.
                   </span>
                 </div>
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__small-text">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__small-text">
                     {" "}
                     Token Allocation{" "}
                   </span>
-                  <span class="tokenomics-list__number">9.00 %</span>
+                  <span className="tokenomics-list__number">9.00 %</span>
                 </div>
               </li>
-              <li class="tokenomics-list__item">
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__title">
-                    <span class="text-theme">
+              <li className="tokenomics-list__item">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__title">
+                    <span className="text-theme">
                       {" "}
                       Advisor / Promoter / Influencer{" "}
                     </span>
                   </span>
-                  <span class="tokenomics-list__small-text">
+                  <span className="tokenomics-list__small-text">
                     Unlockced all at TGE and vested over 45 Months from TLE
                     date.
                   </span>
                 </div>
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__small-text">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__small-text">
                     {" "}
                     Token Allocation{" "}
                   </span>
-                  <span class="tokenomics-list__number">3.00 %</span>
+                  <span className="tokenomics-list__number">3.00 %</span>
                 </div>
               </li>
-              <li class="tokenomics-list__item">
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__title">
-                    <span class="text-theme">Proof Of Reserve</span>
+              <li className="tokenomics-list__item">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__title">
+                    <span className="text-theme">Proof Of Reserve</span>
                   </span>
-                  <span class="tokenomics-list__small-text">
+                  <span className="tokenomics-list__small-text">
                     18 Month cliff and vested over 45 Months from TGE date.
                   </span>
                 </div>
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__small-text">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__small-text">
                     {" "}
                     Token Allocation{" "}
                   </span>
-                  <span class="tokenomics-list__number">9.00 %</span>
+                  <span className="tokenomics-list__number">9.00 %</span>
                 </div>
               </li>
-              <li class="tokenomics-list__item">
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__title">
-                    <span class="text-theme">Exchanges</span>
+              <li className="tokenomics-list__item">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__title">
+                    <span className="text-theme">Exchanges</span>
                   </span>
-                  <span class="tokenomics-list__small-text">
+                  <span className="tokenomics-list__small-text">
                     Unlockced all at TGE and vested over 12 Months from TLE
                     date.
                   </span>
                 </div>
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__small-text">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__small-text">
                     {" "}
                     Token Allocation{" "}
                   </span>
-                  <span class="tokenomics-list__number">9.00 %</span>
+                  <span className="tokenomics-list__number">9.00 %</span>
                 </div>
               </li>
-              <li class="tokenomics-list__item">
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__title">
-                    <span class="text-theme">Staking Reward</span>
+              <li className="tokenomics-list__item">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__title">
+                    <span className="text-theme">Staking Reward</span>
                   </span>
-                  <span class="tokenomics-list__small-text">
+                  <span className="tokenomics-list__small-text">
                     3 Months cliff and vested over 45 Months from TGE date.
                   </span>
                 </div>
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__small-text">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__small-text">
                     {" "}
                     Token Allocation{" "}
                   </span>
-                  <span class="tokenomics-list__number">5.00 %</span>
+                  <span className="tokenomics-list__number">5.00 %</span>
                 </div>
               </li>
-              <li class="tokenomics-list__item">
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__title">
-                    <span class="text-theme">Airdrop</span>
+              <li className="tokenomics-list__item">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__title">
+                    <span className="text-theme">Airdrop</span>
                   </span>
-                  <span class="tokenomics-list__small-text">
+                  <span className="tokenomics-list__small-text">
                     1 Month cliff and vested over 9 Months from TGE date.
                   </span>
                 </div>
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__small-text">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__small-text">
                     {" "}
                     Token Allocation{" "}
                   </span>
-                  <span class="tokenomics-list__number">3.00 %</span>
+                  <span className="tokenomics-list__number">3.00 %</span>
                 </div>
               </li>
-              <li class="tokenomics-list__item">
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__title">
-                    <span class="text-theme">Future Innovation</span>
+              <li className="tokenomics-list__item">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__title">
+                    <span className="text-theme">Future Innovation</span>
                   </span>
-                  <span class="tokenomics-list__small-text">
+                  <span className="tokenomics-list__small-text">
                     3 Months cliff and vested over 27 Months from TGE date.
                   </span>
                 </div>
-                <div class="tokenomics-list__col">
-                  <span class="tokenomics-list__small-text">
+                <div className="tokenomics-list__col">
+                  <span className="tokenomics-list__small-text">
                     {" "}
                     Token Allocation{" "}
                   </span>
-                  <span class="tokenomics-list__number">2.00 %</span>
+                  <span className="tokenomics-list__number">2.00 %</span>
                 </div>
               </li>
             </ul>
           </div>
         </div>
       </section>
-      <div class="roadmap-sec p-tb white-sec c-l" id="roadmap">
-        <div class="circle-ripple"></div>
-        <div class="container">
-          <div class="row justify-content-center">
+      <div className="roadmap-sec p-tb white-sec c-l" id="roadmap">
+        <div className="circle-ripple"></div>
+        <div className="container">
+          <div className="row justify-content-center">
             <div className="col-lg-8">
-              <div class="text-center">
-                <h1 class="section-heading">
+              <div className="text-center">
+                <h1 className="section-heading">
                   <span className="tommorow">WISE</span> Route
                 </h1>
               </div>
-              <div class="sub-txt text-center">
+              <div className="sub-txt text-center">
                 <h4>
                   {" "}
                   Proceeding down the avenue of disseminating knowledge with a
                   WISE community and carving a fresh path towards enlightenment.{" "}
                 </h4>
               </div>
-              <h2 class="text-center">
+              <h2 className="text-center">
                 “The <span className="tommorow">SWIM</span> Year Ahead“
               </h2>
             </div>
           </div>
           <div className="rowTwoCol">
-            <div class="vertical-roadmap twoColumn">
-              <div class="roadmap-item">
-                <div class="roadmap-text">
-                  <div class="roadmap-item-text">
+            <div className="vertical-roadmap twoColumn">
+              <div className="roadmap-item">
+                <div className="roadmap-text">
+                  <div className="roadmap-item-text">
                     <ul>
                       <li>
                         {" "}
@@ -645,14 +680,14 @@ const Presale = () => {
                       </li>
                     </ul>
                   </div>
-                  <div class="roadmap-day">
+                  <div className="roadmap-day">
                     <span>Goal-Driven-Events</span>
                   </div>
                 </div>
               </div>
-              <div class="roadmap-item">
-                <div class="roadmap-text cm_wd_100">
-                  <div class="roadmap-item-text">
+              <div className="roadmap-item">
+                <div className="roadmap-text cm_wd_100">
+                  <div className="roadmap-item-text">
                     <ul>
                       <li>
                         {" "}
@@ -676,14 +711,14 @@ const Presale = () => {
                       </li>
                     </ul>
                   </div>
-                  <div class="roadmap-day">
+                  <div className="roadmap-day">
                     <span>Social Media and Technology</span>
                   </div>
                 </div>
               </div>
-              <div class="roadmap-item">
-                <div class="roadmap-text">
-                  <div class="roadmap-item-text">
+              <div className="roadmap-item">
+                <div className="roadmap-text">
+                  <div className="roadmap-item-text">
                     <ul>
                       <li>
                         Foster community by inviting and engaging everyone to
@@ -702,14 +737,14 @@ const Presale = () => {
                       </li>
                     </ul>
                   </div>
-                  <div class="roadmap-day">
+                  <div className="roadmap-day">
                     <span> Community Building 'THE WISE ACADEMY' </span>
                   </div>
                 </div>
               </div>
-              <div class="roadmap-item">
-                <div class="roadmap-text cm_wd_100">
-                  <div class="roadmap-item-text">
+              <div className="roadmap-item">
+                <div className="roadmap-text cm_wd_100">
+                  <div className="roadmap-item-text">
                     <ul>
                       <li>
                         Launch the Testing of Toddler's Game NFT to the public
@@ -730,16 +765,16 @@ const Presale = () => {
                       </li>
                     </ul>
                   </div>
-                  <div class="roadmap-day">
+                  <div className="roadmap-day">
                     <span>Launch Test and Marketing</span>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="vertical-roadmap twoColumn">
-              <div class="roadmap-item">
-                <div class="roadmap-text">
-                  <div class="roadmap-item-text">
+            <div className="vertical-roadmap twoColumn">
+              <div className="roadmap-item">
+                <div className="roadmap-text">
+                  <div className="roadmap-item-text">
                     <ul>
                       <li>
                         Continue to Forge strategic alliances with top gaming
@@ -766,14 +801,14 @@ const Presale = () => {
                       </li>
                     </ul>
                   </div>
-                  <div class="roadmap-day">
+                  <div className="roadmap-day">
                     <span>Development and Partnership</span>
                   </div>
                 </div>
               </div>
-              <div class="roadmap-item">
-                <div class="roadmap-text cm_wd_100">
-                  <div class="roadmap-item-text">
+              <div className="roadmap-item">
+                <div className="roadmap-text cm_wd_100">
+                  <div className="roadmap-item-text">
                     <ul>
                       <li>
                         Creating potential platforms for expanding the SWIM
@@ -787,14 +822,14 @@ const Presale = () => {
                       </li>
                     </ul>
                   </div>
-                  <div class="roadmap-day">
+                  <div className="roadmap-day">
                     <span>Expansion and Collaboration</span>
                   </div>
                 </div>
               </div>
-              <div class="roadmap-item">
-                <div class="roadmap-text">
-                  <div class="roadmap-item-text">
+              <div className="roadmap-item">
+                <div className="roadmap-text">
+                  <div className="roadmap-item-text">
                     <ul>
                       <li>
                         {" "}
@@ -815,14 +850,14 @@ const Presale = () => {
                       </li>
                     </ul>
                   </div>
-                  <div class="roadmap-day">
+                  <div className="roadmap-day">
                     <span>Rewards System</span>
                   </div>
                 </div>
               </div>
-              <div class="roadmap-item">
-                <div class="roadmap-text cm_wd_100">
-                  <div class="roadmap-item-text">
+              <div className="roadmap-item">
+                <div className="roadmap-text cm_wd_100">
+                  <div className="roadmap-item-text">
                     <ul>
                       <li>
                         {" "}
@@ -842,7 +877,7 @@ const Presale = () => {
                       </li>
                     </ul>
                   </div>
-                  <div class="roadmap-day">
+                  <div className="roadmap-day">
                     <span>Continuous Improvement</span>
                   </div>
                 </div>
@@ -880,3 +915,6 @@ const Presale = () => {
   );
 };
 export default Presale;
+
+
+
