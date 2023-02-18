@@ -17,8 +17,7 @@ import MetaMaskConnector from "./Wallet/MetaMaskConnector";
 import { Web3Button } from "@web3modal/react";
 import DialogBox from "./DialogBox";
 import { makeStyles } from '@material-ui/core/styles';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWallet } from '@fortawesome/free-solid-svg-icons';
+
 import { useAccount } from "wagmi";
 
 
@@ -155,7 +154,7 @@ const Presale = () => {
     );
   };
 
-  const THREE_DAYS_IN_MS = 15 * 24 * 60 * 60 * 1000;
+  const THREE_DAYS_IN_MS = 27 * 24 * 60 * 60 * 1000;
   const NOW_IN_MS = new Date().getTime();
   const dateTimeAfterThreeDays = NOW_IN_MS + THREE_DAYS_IN_MS;
 
@@ -248,7 +247,7 @@ const Presale = () => {
                       </div>
                       <div className={`loader-bar ${classes.loaderBar}`}>
                       <div className={`value ${classes.value}`}>
-                          <h5>Raised $
+                          <h5>Amount Raised $
                           <NumericFormat className="NumericFormat"  value={parseFloat(soldToken.sold).toFixed(2)} allowLeadingZeros thousandSeparator="," />
                             
                              </h5>
