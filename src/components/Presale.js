@@ -226,8 +226,8 @@ const Presale = () => {
                       </div>
 
                       {isConnected ? (
-                        <div className="wallet mt-3">
-                          
+                        <>
+                        <div className="wallet mt-3">     
                           <Button
                             className="w-100 btn btn-primary"
                             onClick={() => setModalShow(true)}
@@ -240,6 +240,10 @@ const Presale = () => {
                             onHide={() => setModalShow(false)}
                           />
                         </div>
+                        <div className="mt-3">
+                        <Web3Button />
+                      </div>
+                      </>
                       ) : (
                         <div className="mt-3">
                           <Web3Button />
