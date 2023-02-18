@@ -31,7 +31,8 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
   
-  function DialogBox(props) {
+function DialogBox(props) {
+
     const classes = useStyles();
   
     const cancelButton = () => {

@@ -13,12 +13,11 @@ import { useCountdown } from "./useCountdown";
 import { padding } from "@mui/system";
 import axios from 'axios';
 import { NumericFormat } from 'react-number-format';
-import MetaMaskConnector from "./Wallet/MetaMaskConnector";
 import { Web3Button } from "@web3modal/react";
 import DialogBox from "./DialogBox";
 import { makeStyles } from '@material-ui/core/styles';
-
 import { useAccount } from "wagmi";
+import { useAuth } from '../contexts/AuthContext2';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -44,6 +43,17 @@ const Presale = () => {
   const [soldToken,setsoldToken] = useState([])
   const [accountAddr, setAccountAddr] = useState("");
   const [dialogBoxOpen, setDialogBoxOpen] = useState(false);
+  const [metamaskConnected, setMetamaskConnected] = useState(false);
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
+
+  const onMetamaskConnect = () => {
+    setMetamaskConnected(true);
+  }
+
+
+  const onMetamaskDisconnect = () => {
+    setMetamaskConnected(false);
+  }
 
   const {
     connector: activeConnector,
@@ -169,6 +179,15 @@ const Presale = () => {
     setDialogBoxOpen(true);
   }
 
+  const disconnectClicked = () => {
+    //setIsLoggedIn(false);
+    setDialogBoxOpen(true);
+    //console.log(`box open`);
+    //debugger;
+    //setMetamaskConnected(false);
+  }
+
+
   const cancelButton = () => {
     setDialogBoxOpen(false);
   }
@@ -253,7 +272,7 @@ const Presale = () => {
                         </div>
                       </div>
 
-                      {isConnected ? (
+                      {isConnected || isLoggedIn ? (
                         <>
                         <div className="wallet mt-3">     
                           <Button
@@ -262,26 +281,17 @@ const Presale = () => {
                           >
                             Buy
                           </Button>
-                          <ExchangeModal
-                            getWeb3={getWeb3}
-                            show={modalShow}
-                            onHide={() => setModalShow(false)}
-                          />
                         </div>
-                        <div className="mt-3">
-                        <Web3Button />
-                      </div>
+                      <Button onClick={disconnectClicked}>Disconnect</Button>
                       </>
                       ) : (
                         <div className="mt-3">
-
-                            <Button onClick={connectClicked}>Connect/Disconnect</Button>
-                          {
-                            <DialogBox dialogBoxOpen={dialogBoxOpen} cancelButton={cancelButton}/>
-                          }
-                          
+                            <Button onClick={connectClicked}>Connect</Button>
                         </div>
                       )}
+                      {
+                        <DialogBox dialogBoxOpen={dialogBoxOpen} cancelButton={cancelButton}/>
+                      }
                       <p className="text-center">
                         Listing begins SOON on more then 4+ Exchanges.
                       </p>

@@ -17,6 +17,7 @@ import { Web3Modal } from "@web3modal/react";
 import { configureChains, createClient, WagmiConfig } from "wagmi";
 
 import { arbitrum, mainnet, polygon } from "wagmi/chains";
+import { AuthProvider } from './contexts/AuthContext2';
 
 function App() {
     const chains = [arbitrum, mainnet, polygon];
@@ -40,7 +41,8 @@ function App() {
     const ethereumClient = new EthereumClient(wagmiClient, chains);
 
     return (
-        <>
+     
+        <AuthProvider>
         <WagmiConfig client={wagmiClient}>
             <div>
                 <BrowserRouter>
@@ -58,7 +60,7 @@ function App() {
             projectId="d786738840ed456764dac0d9512f4948"
             ethereumClient={ethereumClient}
         />
-        </>
+        </AuthProvider>
     );
 }
 
