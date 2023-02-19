@@ -6,9 +6,8 @@ import {Navbar,Container,Offcanvas,Nav,NavDropdown,Form,Button} from 'react-boot
 const Footer = () => {
 
     return (
-
         <>
-            <footer  className="footer tm-wrapper tm-container tm-grid-base">
+            <footer  className="footer tm-wrapper tm-container tm-grid-base" style={{ position: "fixed", bottom: 0, width: "100%", height: "25%"}}>
                 <div className='container'>
                     <div  className="row pt-2 mb-0">
                         <div className="col-md-4 d-block d-md-none">

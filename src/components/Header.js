@@ -162,95 +162,11 @@ const Header = (props) => {
 
                         <Navbar.Brand href="#">
                             <div className="logo-area">
-                                <img alt="SWIM" src="assets/img/logo.png" width="120" />
+                                <a href="https://swimspreadwisdom.io">
+                                    <img alt="SWIM" src="assets/img/logo.png" width="120" />
+                                </a>
                             </div>
                         </Navbar.Brand>
-                        {/* <Navbar.Toggle  /> */}
-                        {/* ======================Mobile header====================  */}
-                        <Button
-                            className="showHide"
-                            onClick={() => {
-                                navigate("/swim/presale");
-                            }}
-                        >
-                            Connect Wallet
-                        </Button>
-
-                        <div id="menuToggle">
-                            <input type="checkbox" />
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <ul id="menu">
-                                <Nav className="justify-content-end flex-grow-1 pe-3 align-items-center">
-                                    <Nav.Link href="#aboutWisdom">About Wisdom</Nav.Link>
-                                    <Nav.Link href="#ecoSystem">Eco System</Nav.Link>
-                                    <Nav.Link target="_blank" href="assets/whitepaper/SWIM_Whitepaper.pdf">
-                                        WISE Paper
-                                    </Nav.Link>
-                                    <Nav.Link href="#wiseConsensus">WISE Consensus</Nav.Link>
-
-                                    <Nav.Link>
-                                        {/* href={`${config.baseUrl}presale`} */}
-                                        {account ? (
-                                            <Nav.Link>
-                                                <>
-                                                    {account.toString().substr(0, 7) + "..." + account.toString().substr(account.length - 7)}
-                                                    &nbsp;
-                                                    <Button className="" onClick={logout}>
-                                                        Disconnect
-                                                    </Button>
-                                                </>
-                                            </Nav.Link>
-                                        ) : (
-                                            <Button
-                                                className=""
-                                                onClick={() => {
-                                                    navigate("/swim/presale");
-                                                }}
-                                            >
-                                                Connect Wallet
-                                            </Button>
-                                        )}
-                                    </Nav.Link>
-                                </Nav>
-                            </ul>
-                        </div>
-                        {/* ======================Mobile header End====================  */}
-                        <Navbar id={`offcanvasNavbar-expand-${expand}`} aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`} placement="end" className="navbar-menus">
-                            <Nav className="justify-content-end flex-grow-1 pe-3 align-items-center">
-                                <Nav.Link href="#aboutWisdom">About Wisdom</Nav.Link>
-                                <Nav.Link href="#ecoSystem">Eco System</Nav.Link>
-                                <Nav.Link target="_blank" href="assets/whitepaper/SWIM_Whitepaper.pdf">
-                                    WISE Paper
-                                </Nav.Link>
-                                <Nav.Link href="#wiseConsensus">WISE Consensus</Nav.Link>
-
-                                <Nav.Link>
-                                    {/* href={`${config.baseUrl}presale`} */}
-                                    {account ? (
-                                        <Nav.Link>
-                                            <>
-                                                {account.toString().substr(0, 7) + "..." + account.toString().substr(account.length - 7)}
-                                                &nbsp;
-                                                <Button className="" onClick={logout}>
-                                                    Disconnect
-                                                </Button>
-                                            </>
-                                        </Nav.Link>
-                                    ) : (
-                                        <Button
-                                            className="btn btn-primary"
-                                            onClick={() => {
-                                                navigate("/swim/presale");
-                                            }}
-                                        >
-                                            Connect Wallet
-                                        </Button>
-                                    )}
-                                </Nav.Link>
-                            </Nav>
-                        </Navbar>
                     </Container>
                 </Navbar>
             ))}
